@@ -58,9 +58,10 @@ router.route("/:id").get((req, res) => {
 
 
 router.route("/add").post((req, res) => {
-    const { Id, Email, Username } = req.query; 
+    const Id = Number(req.query.Id);
+    const { Email, Username } = req.query; 
     const newUser = new Users({
-        Id, Email, Username
+         Id, Email, Username
     });
     
     newUser.save()
