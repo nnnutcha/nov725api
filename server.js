@@ -58,7 +58,7 @@ router.route("/:id").get((req, res) => {
 
 
 router.route("/add").post((req, res) => {
-    const Id = Number(req.query.Id);
+    const Id = parseInt(req.query.Id, 10); 
     const { Email, Username } = req.query; 
     const newUser = new Users({
          Id, Email, Username
@@ -75,11 +75,12 @@ router.route("/update/:id").put((req, res) => {
         .then((user) => {
             user.Email = req.query.Email;
             user.Username = req.query.Username;
-            Users.save()
-                .then(() => res.json("User updated!")) 
-                .catch((err) => res.status(400).json("Error: " + err)); 
+
+            user.save() 
+                .then(() => res.json("User updated!"))
+                .catch((err) => res.status(400).json("Error: " + err));
         })
-        .catch((err) => res.status(400).json("Error: " + err)); 
+        .catch((err) => res.status(400).json("Error: " + err));
 });
 
 router.route("/delete/:id").delete((req, res) => {
